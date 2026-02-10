@@ -1,32 +1,51 @@
-//
-//  Pixel_StudioApp.swift
-//  Pixel Studio
-//
-//  Created by Keviruchis on 2/10/26.
-//
-
 import SwiftUI
 import SwiftData
 
 @main
 struct Pixel_StudioApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+    let modelContainer: ModelContainer
+    @State private var appState = AppState()
 
+    init() {
+        let schema = Schema([
+            Project.self,
+            Page.self,
+            Node.self,
+            StyleProperty.self,
+            DesignToken.self,
+            Component.self,
+            Asset.self,
+            Breakpoint.self,
+        ])
+        let config = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false
+        )
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            modelContainer = try ModelContainer(for: schema, configurations: [config])
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            fatalError("Failed to create ModelContainer: \(error)")
         }
-    }()
+    }
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        Window("Pixel Studio", id: "start") {
+            StartWindowView()
+                .environment(appState)
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(modelContainer)
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 800, height: 500)
+        .windowResizability(.contentSize)
+
+        WindowGroup("Editor", for: UUID.self) { $projectID in
+            if let projectID {
+                EditorHostView(projectID: projectID)
+                    .environment(appState)
+            }
+        }
+        .modelContainer(modelContainer)
+        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 1400, height: 900)
     }
 }
