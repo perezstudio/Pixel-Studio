@@ -19,6 +19,8 @@ struct InspectorContainerView: View {
                 GitTabView(project: project)
             }
         }
-        .frame(maxHeight: .infinity, alignment: .top)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(VisualEffectBackground(material: .sidebar))
+        .ignoresSafeArea(edges: .top)
     }
 }

@@ -39,6 +39,16 @@ struct EditorHostView: View {
             if let project, let firstPage = project.pages.sorted(by: { $0.sortOrder < $1.sortOrder }).first {
                 editorState.selectedPageID = firstPage.id
             }
+
+            // Configure window for no liquid glass — content extends to title bar
+            DispatchQueue.main.async {
+                if let window = NSApp.keyWindow ?? NSApp.windows.last {
+                    window.titlebarAppearsTransparent = true
+                    window.titleVisibility = .hidden
+                    window.titlebarSeparatorStyle = .none
+                    window.backgroundColor = .windowBackgroundColor
+                }
+            }
         }
     }
 }

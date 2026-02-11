@@ -9,47 +9,53 @@ class EditorSplitViewController: NSSplitViewController {
     var modelContext: ModelContext!
     private var keyboardHandler: EditorKeyboardHandler?
 
+    private var sidebarItem: NSSplitViewItem!
+    private var contentItem: NSSplitViewItem!
+    private var inspectorItem: NSSplitViewItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Configure split view — traditional dividers, no floating panels
         splitView.isVertical = true
         splitView.dividerStyle = .thin
 
-        // Sidebar
+        // Sidebar — plain viewController (NOT sidebarWithViewController to avoid liquid glass)
         let sidebarHost = NSHostingController(
             rootView: SidebarContainerView(project: project)
                 .environment(editorState)
                 .environment(appState)
                 .modelContext(modelContext)
         )
-        let sidebarItem = NSSplitViewItem(sidebarWithViewController: sidebarHost)
+        sidebarItem = NSSplitViewItem(viewController: sidebarHost)
         sidebarItem.canCollapse = true
         sidebarItem.minimumThickness = 240
         sidebarItem.maximumThickness = 400
-        sidebarItem.preferredThicknessFraction = 0.2
+        sidebarItem.holdingPriority = .defaultLow + 1
 
-        // Content
+        // Content — plain viewController
         let contentHost = NSHostingController(
             rootView: ContentContainerView(project: project)
                 .environment(editorState)
                 .environment(appState)
                 .modelContext(modelContext)
         )
-        let contentItem = NSSplitViewItem(viewController: contentHost)
+        contentItem = NSSplitViewItem(viewController: contentHost)
         contentItem.minimumThickness = 400
+        contentItem.holdingPriority = .defaultLow
 
-        // Inspector
+        // Inspector — plain viewController (NOT inspectorWithViewController to avoid liquid glass)
         let inspectorHost = NSHostingController(
             rootView: InspectorContainerView(project: project)
                 .environment(editorState)
                 .environment(appState)
                 .modelContext(modelContext)
         )
-        let inspectorItem = NSSplitViewItem(inspectorWithViewController: inspectorHost)
+        inspectorItem = NSSplitViewItem(viewController: inspectorHost)
         inspectorItem.canCollapse = true
         inspectorItem.minimumThickness = 280
         inspectorItem.maximumThickness = 400
-        inspectorItem.preferredThicknessFraction = 0.22
+        inspectorItem.holdingPriority = .defaultLow + 1
 
         addSplitViewItem(sidebarItem)
         addSplitViewItem(contentItem)
@@ -70,13 +76,19 @@ class EditorSplitViewController: NSSplitViewController {
     }
 
     func toggleSidebar() {
-        guard let item = splitViewItems.first else { return }
-        item.animator().isCollapsed.toggle()
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.2
+            context.allowsImplicitAnimation = true
+            sidebarItem.animator().isCollapsed.toggle()
+        }
     }
 
     func toggleInspector() {
-        guard let item = splitViewItems.last else { return }
-        item.animator().isCollapsed.toggle()
+        NSAnimationContext.runAnimationGroup { context in
+            context.duration = 0.2
+            context.allowsImplicitAnimation = true
+            inspectorItem.animator().isCollapsed.toggle()
+        }
     }
 }
 

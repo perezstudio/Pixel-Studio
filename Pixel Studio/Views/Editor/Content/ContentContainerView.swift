@@ -27,6 +27,7 @@ struct ContentContainerView: View {
                 emptyState
             }
         }
+        .background(VisualEffectBackground(material: .contentBackground, blendingMode: .withinWindow))
         .sheet(isPresented: $showBlockInsert) {
             BlockInsertSheet(project: project)
         }
