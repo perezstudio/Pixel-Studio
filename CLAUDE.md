@@ -146,11 +146,15 @@ Pixel Studio/
 - [x] SvelteKitGenerator orchestrator (scaffold → app.css → layouts → routes → components → assets → fallback root layout)
 - **Build status:** 0 Swift errors, 0 warnings
 
-### Phase 6: Git Integration — TODO
-- [ ] GitService (wraps /usr/bin/git via Process)
-- [ ] GenerateProjectView (generate button + directory picker)
-- [ ] GitDiffView (syntax-highlighted diff)
-- [ ] GitCommitView + GitPushView
+### Phase 6: Git Integration — COMPLETED
+- [x] GitService (@Observable, wraps /usr/bin/git via Process — status, diff, commit, push, log, init, addRemote, setRemoteURL)
+- [x] GenerateProjectView (output directory picker via NSOpenPanel, security-scoped bookmarks, SvelteKitGenerator integration, open in Finder)
+- [x] GitDiffView (syntax-highlighted diff — green additions, red deletions, cyan hunk headers, monospaced)
+- [x] GitCommitView (commit message TextEditor, stage-all toggle, commit button)
+- [x] GitPushView (remote URL display/edit, push button with upstream tracking)
+- [x] GitTabView (composes all views — generate, init repo, status, diff, commit, push, recent log)
+- [x] InspectorContainerView updated — git tab wired to real GitTabView
+- **Build status:** 0 Swift errors, 0 warnings
 
 ### Phase 7: CloudKit & Polish — TODO
 - [ ] CloudKit entitlements + sync manager
