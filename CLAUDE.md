@@ -88,12 +88,15 @@ Pixel Studio/
 - [x] Block insert sheet, asset import sheet, new component sheet
 - **Build status:** 0 Swift errors, 0 warnings (codesign fails due to macOS 26.2 toolchain — not code-related)
 
-### Phase 2: Enhanced Editor Shell — TODO
-- [ ] Drag-and-drop reorder in navigator
-- [ ] Inline rename (double-click) for pages and nodes
-- [ ] Multi-select in navigator (Cmd+click)
-- [ ] Context menu actions: wrap in div, copy/paste/cut
-- [ ] Improved sidebar toggle animations
+### Phase 2: Enhanced Editor Shell — COMPLETED
+- [x] Drag-and-drop reorder in navigator (nodes can be reparented, pages can be reordered)
+- [x] Inline rename (double-click) for pages and nodes (with Escape to cancel)
+- [x] Multi-select in navigator (Cmd+click toggle, tracked in selectedNodeIDs)
+- [x] Context menu actions: wrap in div/section/article/link, copy/cut/paste, duplicate, toggle visibility/lock, delete
+- [x] Root-level drop zone in navigator for moving nodes to page root
+- [x] NodeSnapshot clipboard system for copy/paste across nodes
+- [x] Page drag reorder with sort order updates
+- **Build status:** 0 Swift errors, 0 warnings
 
 ### Phase 3: Canvas and Live Preview — TODO
 - [ ] HTMLRenderService (node tree → HTML document)
