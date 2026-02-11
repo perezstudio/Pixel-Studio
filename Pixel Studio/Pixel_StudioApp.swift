@@ -19,7 +19,8 @@ struct Pixel_StudioApp: App {
         ])
         let config = ModelConfiguration(
             schema: schema,
-            isStoredInMemoryOnly: false
+            isStoredInMemoryOnly: false,
+            cloudKitDatabase: .automatic
         )
         do {
             modelContainer = try ModelContainer(for: schema, configurations: [config])

@@ -6,6 +6,7 @@ struct EditorHostView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(AppState.self) private var appState
     @State private var editorState = EditorState()
+    @State private var undoManager = UndoManager()
 
     private var project: Project? {
         let descriptor = FetchDescriptor<Project>(
@@ -32,6 +33,9 @@ struct EditorHostView: View {
         }
         .environment(editorState)
         .onAppear {
+            // Wire UndoManager to SwiftData model context
+            modelContext.undoManager = undoManager
+
             if let project, let firstPage = project.pages.sorted(by: { $0.sortOrder < $1.sortOrder }).first {
                 editorState.selectedPageID = firstPage.id
             }

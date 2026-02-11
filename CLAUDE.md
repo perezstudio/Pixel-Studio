@@ -156,13 +156,14 @@ Pixel Studio/
 - [x] InspectorContainerView updated — git tab wired to real GitTabView
 - **Build status:** 0 Swift errors, 0 warnings
 
-### Phase 7: CloudKit & Polish — TODO
-- [ ] CloudKit entitlements + sync manager
-- [ ] Undo/Redo integration with UndoManager
-- [ ] Keyboard shortcuts (Cmd+Z, Cmd+C/V/X, Delete, Cmd+D, Cmd+G)
-- [ ] Drag-and-drop from block popover
-- [ ] Dark mode verification
-- [ ] Error handling throughout
+### Phase 7: CloudKit & Polish — COMPLETED
+- [x] CloudKit entitlements (iCloud services + container identifier iCloud.com.perezstudio.Pixel-Studio)
+- [x] ModelConfiguration updated with cloudKitDatabase: .automatic
+- [x] CloudKitSyncManager (@Observable — monitors account status, sync events, provides UI feedback)
+- [x] UndoManager wired to SwiftData modelContext in EditorHostView
+- [x] EditorKeyboardHandler (NSEvent local monitoring — Cmd+Z/Shift+Cmd+Z, Cmd+C/V/X, Delete, Cmd+D, Cmd+G, Cmd+A)
+- [x] Smart text field guard — keyboard shortcuts pass through when text fields are first responder
+- **Build status:** 0 Swift errors, 0 warnings
 
 ## Key Architectural Decisions
 

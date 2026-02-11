@@ -7,6 +7,7 @@ class EditorSplitViewController: NSSplitViewController {
     var editorState: EditorState!
     var appState: AppState!
     var modelContext: ModelContext!
+    private var keyboardHandler: EditorKeyboardHandler?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,19 @@ class EditorSplitViewController: NSSplitViewController {
         addSplitViewItem(sidebarItem)
         addSplitViewItem(contentItem)
         addSplitViewItem(inspectorItem)
+
+        // Install keyboard shortcuts
+        keyboardHandler = EditorKeyboardHandler(
+            project: project,
+            editorState: editorState,
+            modelContext: modelContext
+        )
+        keyboardHandler?.install()
+    }
+
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        keyboardHandler?.uninstall()
     }
 
     func toggleSidebar() {
