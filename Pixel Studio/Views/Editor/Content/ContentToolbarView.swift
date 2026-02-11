@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentToolbarView: View {
     let project: Project
+    @Binding var showBlockInsert: Bool
     @Environment(EditorState.self) private var editorState
 
     private var selectedPage: Page? {
@@ -10,41 +11,77 @@ struct ContentToolbarView: View {
     }
 
     var body: some View {
+        @Bindable var state = editorState
+
         HStack(spacing: 12) {
             // Plus button (block insert)
-            Button(action: {}) {
+            Button(action: { showBlockInsert = true }) {
                 Image(systemName: "plus")
                     .font(.system(size: 14))
             }
             .buttonStyle(.plain)
             .help("Insert Block")
+            .disabled(selectedPage == nil)
 
             Spacer()
 
-            // Center: page name + branch
+            // Center: page name
             VStack(spacing: 1) {
                 Text(selectedPage?.name ?? "No Page Selected")
                     .font(.system(size: 13, weight: .medium))
 
-                Text("main")
-                    .font(.system(size: 10))
-                    .foregroundStyle(.tertiary)
+                if selectedPage != nil {
+                    Text(selectedPage?.route ?? "")
+                        .font(.system(size: 10))
+                        .foregroundStyle(.tertiary)
+                }
             }
 
             Spacer()
 
-            // Preview controls
-            Button(action: {}) {
-                Image(systemName: "play.fill")
-                    .font(.system(size: 12))
-                Text("Run")
-                    .font(.system(size: 12))
+            // Breakpoint dropdown
+            if selectedPage != nil {
+                BreakpointDropdown(project: project)
             }
-            .buttonStyle(.bordered)
-            .controlSize(.small)
+
+            // Zoom controls
+            if selectedPage != nil {
+                HStack(spacing: 4) {
+                    Button(action: { zoomOut() }) {
+                        Image(systemName: "minus.magnifyingglass")
+                            .font(.system(size: 12))
+                    }
+                    .buttonStyle(.plain)
+
+                    Text("\(Int(state.canvasZoom * 100))%")
+                        .font(.system(size: 11, design: .monospaced))
+                        .frame(width: 40)
+
+                    Button(action: { zoomIn() }) {
+                        Image(systemName: "plus.magnifyingglass")
+                            .font(.system(size: 12))
+                    }
+                    .buttonStyle(.plain)
+
+                    Button(action: { state.canvasZoom = 1.0 }) {
+                        Image(systemName: "1.magnifyingglass")
+                            .font(.system(size: 12))
+                    }
+                    .buttonStyle(.plain)
+                    .help("Reset Zoom")
+                }
+            }
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .background(.bar)
+    }
+
+    private func zoomIn() {
+        editorState.canvasZoom = min(editorState.canvasZoom + 0.1, 3.0)
+    }
+
+    private func zoomOut() {
+        editorState.canvasZoom = max(editorState.canvasZoom - 0.1, 0.25)
     }
 }

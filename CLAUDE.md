@@ -98,15 +98,18 @@ Pixel Studio/
 - [x] Page drag reorder with sort order updates
 - **Build status:** 0 Swift errors, 0 warnings
 
-### Phase 3: Canvas and Live Preview — TODO
-- [ ] HTMLRenderService (node tree → HTML document)
-- [ ] CSSGenerationService (styles → CSS with media queries)
-- [ ] PreviewServer (NWListener local HTTP server)
-- [ ] WebPreviewView (WKWebView with click-to-select JS bridge)
-- [ ] PreviewCoordinator (model change → preview refresh)
-- [ ] CanvasView (resizable preview at breakpoint dimensions)
-- [ ] BlockInsertPopover (searchable, categorized element picker)
-- [ ] BreakpointDropdown + EditBreakpointsSheet
+### Phase 3: Canvas and Live Preview — COMPLETED
+- [x] HTMLRenderService (node tree → HTML document with click-to-select JS, hover highlights, selection outlines)
+- [x] CSSGenerationService (styles → CSS with media queries, design token variables, CSS reset)
+- [x] PreviewServer (NWListener local HTTP server on auto-assigned port, serves HTML on localhost)
+- [x] WebPreviewView (WKWebView NSViewRepresentable with JS bridge — click selects node, hover highlights)
+- [x] PreviewCoordinator (@Observable, owns server + render services, regenerates HTML, highlights selection)
+- [x] CanvasView (Figma-style artboard with breakpoint label, shadow, zoom via scaleEffect)
+- [x] ContentContainerView updated with actual canvas, block insert sheet, empty state
+- [x] ContentToolbarView updated with block insert button, breakpoint dropdown, zoom controls
+- [x] BreakpointDropdown (menu picker with breakpoint list + edit sheet trigger)
+- [x] EditBreakpointsSheet (add/edit/delete breakpoints, inline editing)
+- **Build status:** 0 Swift errors, 0 warnings
 
 ### Phase 4: Inspector — Style & Settings — TODO
 - [ ] Node+StyleHelpers extension (read/write StyleProperty)
