@@ -136,14 +136,15 @@ Pixel Studio/
 - [x] InspectorContainerView updated — style and settings tabs wired to real views
 - **Build status:** 0 Swift errors, 0 warnings
 
-### Phase 5: Code Generation — TODO
-- [ ] SvelteKit template resources (package.json, svelte.config.js, etc.)
-- [ ] ProjectScaffolder (project skeleton)
-- [ ] RouteGenerator (Page → +page.svelte)
-- [ ] LayoutGenerator (+layout.svelte with slot)
-- [ ] ComponentGenerator (.svelte component files)
-- [ ] StylesheetGenerator (app.css with tokens as CSS custom properties)
-- [ ] SvelteKitGenerator orchestrator
+### Phase 5: Code Generation — COMPLETED
+- [x] SvelteKit template resources (package.json, svelte.config.js, vite.config.ts, app.html — embedded as string literals)
+- [x] ProjectScaffolder (creates directory structure + config files)
+- [x] RouteGenerator (Page → +page.svelte with class-based CSS, svelte:head, component imports, responsive media queries)
+- [x] LayoutGenerator (+layout.svelte with slot, app.css import)
+- [x] ComponentGenerator (Component → src/lib/components/Name.svelte)
+- [x] StylesheetGenerator (app.css with CSS reset, design token :root custom properties, base body styles)
+- [x] SvelteKitGenerator orchestrator (scaffold → app.css → layouts → routes → components → assets → fallback root layout)
+- **Build status:** 0 Swift errors, 0 warnings
 
 ### Phase 6: Git Integration — TODO
 - [ ] GitService (wraps /usr/bin/git via Process)
