@@ -111,12 +111,30 @@ Pixel Studio/
 - [x] EditBreakpointsSheet (add/edit/delete breakpoints, inline editing)
 - **Build status:** 0 Swift errors, 0 warnings
 
-### Phase 4: Inspector — Style & Settings — TODO
-- [ ] Node+StyleHelpers extension (read/write StyleProperty)
-- [ ] Shared components: CollapsibleSection, LengthInputField, BoxSidesEditor, ColorPickerField, CustomTokenField
-- [ ] Style tab: 10 sections (Styles/Layout/Spacing/Size/Position/Typography/Backgrounds/Borders/Effects/Custom)
-- [ ] Settings tab: context-sensitive per node type (image, link, text, form, generic)
-- [ ] Design token system (create, apply, manage tokens)
+### Phase 4: Inspector — Style & Settings — COMPLETED
+- [x] Node+StyleHelpers extension (styleValue/setStyle/setCustomStyle/customStyles/removeCustomStyle)
+- [x] Shared components: CollapsibleSection, LengthInputField (value+unit picker), BoxSidesEditor (4-side with link), ColorPickerField (color well + hex), FlowLayout
+- [x] StyleTabView with node header, 10 collapsible sections, empty state
+- [x] TokensSectionView (apply/remove design tokens with pill UI and token picker popover)
+- [x] LayoutSectionView (display, conditional flex/grid controls, gap)
+- [x] SpacingSectionView (margin + padding with BoxSidesEditor)
+- [x] SizeSectionView (width/height/min/max with LengthInputField)
+- [x] PositionSectionView (position type, conditional offsets, z-index)
+- [x] TypographySectionView (family, size, weight, style, line-height, letter-spacing, align, decoration, transform, color)
+- [x] BackgroundSectionView (color, image URL, size, position, repeat)
+- [x] BorderSectionView (width per side, uniform style/color, border-radius per corner)
+- [x] EffectsSectionView (opacity slider, box-shadow, text-shadow, transform, overflow, cursor)
+- [x] CustomPropertiesSectionView (dynamic key:value pairs with add/remove)
+- [x] SettingsTabView (routes to context-sensitive views per node type)
+- [x] ImageSettingsView (src, alt, width, height, loading)
+- [x] LinkSettingsView (href, target, rel, text content)
+- [x] TextSettingsView (multiline text editor)
+- [x] FormSettingsView (action, method)
+- [x] FormElementSettingsView (input type, name, placeholder, value, required toggle)
+- [x] GenericSettingsView (element ID, CSS class, custom attributes with add/remove)
+- [x] PageSettingsView (title, route, slug, meta description, layout toggle)
+- [x] InspectorContainerView updated — style and settings tabs wired to real views
+- **Build status:** 0 Swift errors, 0 warnings
 
 ### Phase 5: Code Generation — TODO
 - [ ] SvelteKit template resources (package.json, svelte.config.js, etc.)

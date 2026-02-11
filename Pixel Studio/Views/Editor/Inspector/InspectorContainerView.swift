@@ -10,60 +10,20 @@ struct InspectorContainerView: View {
 
             Divider()
 
-            ScrollView {
-                switch editorState.activeInspectorTab {
-                case .style:
-                    StyleTabPlaceholderView()
-                case .settings:
-                    SettingsTabPlaceholderView()
-                case .git:
-                    GitTabPlaceholderView()
-                }
+            switch editorState.activeInspectorTab {
+            case .style:
+                StyleTabView(project: project)
+            case .settings:
+                SettingsTabView(project: project)
+            case .git:
+                GitTabPlaceholderView()
             }
         }
         .frame(maxHeight: .infinity, alignment: .top)
     }
 }
 
-// Placeholder views for Phase 5 implementation
-struct StyleTabPlaceholderView: View {
-    var body: some View {
-        VStack(spacing: 8) {
-            Spacer().frame(height: 40)
-            Image(systemName: "paintbrush")
-                .font(.system(size: 24))
-                .foregroundStyle(.secondary)
-            Text("Style Inspector")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            Text("Select an element to edit styles")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
-}
-
-struct SettingsTabPlaceholderView: View {
-    var body: some View {
-        VStack(spacing: 8) {
-            Spacer().frame(height: 40)
-            Image(systemName: "gearshape")
-                .font(.system(size: 24))
-                .foregroundStyle(.secondary)
-            Text("Settings")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            Text("Select an element to view settings")
-                .font(.caption)
-                .foregroundStyle(.tertiary)
-        }
-        .frame(maxWidth: .infinity)
-        .padding()
-    }
-}
-
+// Git tab placeholder — will be implemented in Phase 6
 struct GitTabPlaceholderView: View {
     var body: some View {
         VStack(spacing: 8) {
