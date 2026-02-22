@@ -28,6 +28,7 @@ struct ContentContainerView: View {
             }
         }
         .background(VisualEffectBackground(material: .contentBackground, blendingMode: .withinWindow))
+        .ignoresSafeArea(edges: .top)
         .sheet(isPresented: $showBlockInsert) {
             BlockInsertSheet(project: project)
         }

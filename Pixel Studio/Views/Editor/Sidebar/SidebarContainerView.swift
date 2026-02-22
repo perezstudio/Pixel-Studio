@@ -8,6 +8,8 @@ struct SidebarContainerView: View {
         VStack(spacing: 0) {
             SidebarToolbarView()
 
+            Divider()
+
             SidebarTabBarView()
 
             SidebarHeaderView(project: project)

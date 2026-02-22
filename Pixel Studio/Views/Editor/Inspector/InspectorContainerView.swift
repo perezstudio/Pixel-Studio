@@ -18,6 +18,8 @@ struct InspectorContainerView: View {
             case .git:
                 GitTabView(project: project)
             }
+
+            Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(VisualEffectBackground(material: .sidebar))

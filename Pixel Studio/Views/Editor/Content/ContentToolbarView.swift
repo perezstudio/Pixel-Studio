@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 struct ContentToolbarView: View {
     let project: Project
@@ -14,6 +15,16 @@ struct ContentToolbarView: View {
         @Bindable var state = editorState
 
         HStack(spacing: 12) {
+            // Show sidebar toggle when sidebar is collapsed
+            if !editorState.isSidebarVisible {
+                Button(action: toggleSidebar) {
+                    Image(systemName: "sidebar.leading")
+                        .font(.system(size: 14))
+                }
+                .buttonStyle(.plain)
+                .help("Toggle Sidebar")
+            }
+
             // Plus button (block insert)
             Button(action: { showBlockInsert = true }) {
                 Image(systemName: "plus")
@@ -72,9 +83,16 @@ struct ContentToolbarView: View {
                 }
             }
         }
+        .frame(height: 52)
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
         .background(.bar)
+    }
+
+    private func toggleSidebar() {
+        guard let window = NSApp.keyWindow,
+              let splitVC = window.contentViewController as? EditorSplitViewController
+        else { return }
+        splitVC.toggleSidebar()
     }
 
     private func zoomIn() {

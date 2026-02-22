@@ -27,6 +27,7 @@ class EditorSplitViewController: NSSplitViewController {
                 .environment(appState)
                 .modelContext(modelContext)
         )
+        sidebarHost.safeAreaRegions = []
         sidebarItem = NSSplitViewItem(viewController: sidebarHost)
         sidebarItem.canCollapse = true
         sidebarItem.minimumThickness = 240
@@ -40,6 +41,7 @@ class EditorSplitViewController: NSSplitViewController {
                 .environment(appState)
                 .modelContext(modelContext)
         )
+        contentHost.safeAreaRegions = []
         contentItem = NSSplitViewItem(viewController: contentHost)
         contentItem.minimumThickness = 400
         contentItem.holdingPriority = .defaultLow
@@ -51,6 +53,7 @@ class EditorSplitViewController: NSSplitViewController {
                 .environment(appState)
                 .modelContext(modelContext)
         )
+        inspectorHost.safeAreaRegions = []
         inspectorItem = NSSplitViewItem(viewController: inspectorHost)
         inspectorItem.canCollapse = true
         inspectorItem.minimumThickness = 280
@@ -80,6 +83,9 @@ class EditorSplitViewController: NSSplitViewController {
             context.duration = 0.2
             context.allowsImplicitAnimation = true
             sidebarItem.animator().isCollapsed.toggle()
+        } completionHandler: { [weak self] in
+            guard let self else { return }
+            self.editorState.isSidebarVisible = !self.sidebarItem.isCollapsed
         }
     }
 
@@ -88,6 +94,9 @@ class EditorSplitViewController: NSSplitViewController {
             context.duration = 0.2
             context.allowsImplicitAnimation = true
             inspectorItem.animator().isCollapsed.toggle()
+        } completionHandler: { [weak self] in
+            guard let self else { return }
+            self.editorState.isInspectorVisible = !self.inspectorItem.isCollapsed
         }
     }
 }

@@ -40,9 +40,8 @@ struct InspectorToolbarView: View {
 
             Spacer()
         }
+        .frame(height: 52)
         .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(.bar)
     }
 
     private func toggleInspector() {

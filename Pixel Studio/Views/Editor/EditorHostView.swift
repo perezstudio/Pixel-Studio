@@ -40,9 +40,10 @@ struct EditorHostView: View {
                 editorState.selectedPageID = firstPage.id
             }
 
-            // Configure window for no liquid glass — content extends to title bar
+            // Configure window for edge-to-edge content — no title bar, no safe area insets
             DispatchQueue.main.async {
                 if let window = NSApp.keyWindow ?? NSApp.windows.last {
+                    window.styleMask.insert(.fullSizeContentView)
                     window.titlebarAppearsTransparent = true
                     window.titleVisibility = .hidden
                     window.titlebarSeparatorStyle = .none
